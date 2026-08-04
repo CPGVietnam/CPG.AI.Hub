@@ -1,0 +1,432 @@
+/* ══════════════════════════════════════════════════
+   CPG AI HUB, REDESIGNED CSS
+   Dark BG · Cherry Red #D10000 · Gold #f4a900
+   Font: Inter (Google Fonts)
+══════════════════════════════════════════════════ */
+
+:root {
+  /* Brand */
+  --red:    #D10000;
+  --red-lt: #e53030;
+  --gold:   #f4a900;
+  --gold-lt:#ffc132;
+
+  /* Dark zone (hero, navbar, footer) */
+  --dark-bg:    #0a0a0a;
+  --dark-bg2:   #111111;
+  --dark-border: rgba(255,255,255,0.1);
+
+  /* Light zone (content sections) */
+  --bg:        #ffffff;
+  --bg-alt:    #ffffff;
+  --card:      #ffffff;
+  --card-h:    #fcfcfc;
+  --border:    rgba(0,0,0,0.08);
+  --border-r:  rgba(209,0,0,0.18);
+  --text:      #1a1a1a;
+  --muted:     #6b7280;
+  --muted2:    #9ca3af;
+  --font:      'Google Sans Flex', 'Google Sans', sans-serif;
+  --mono:      'Google Sans Flex', 'Google Sans', sans-serif;
+}
+
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 15px;
+  background: #ffffff;
+  margin: 0; padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  background: #ffffff;
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  margin: 0; padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.page-bg {
+  position: absolute; top: 0; left: 0; right: 0; height: 100vh;
+  z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(209,0,0,0.03) 0%, transparent 70%);
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+.section { padding: 80px 0; background: var(--bg); }
+.alt-bg { background: var(--bg-alt); border-top: none; border-bottom: none; }
+
+/* ── COLOR HELPERS ── */
+.c-red  { color: var(--red); }
+.c-gold { color: var(--gold); }
+.c-dark { color: #1a1a1a; }
+
+/* ── SECTION HEADER BITS ── */
+.section-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+  color: var(--red); margin-bottom: 12px; text-align: left;
+}
+.section-head-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 24px; flex-wrap: wrap; margin-bottom: 40px;
+}
+.section-head-row h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 6px; }
+.section-sub { color: var(--muted); font-size: 0.88rem; max-width: 850px; }
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3 { font-weight: 700; line-height: 1.25; }
+
+.grad-text {
+  background: linear-gradient(135deg, var(--red) 0%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* ══════════════════════════════
+   NAVBAR (MAD Architects Style)
+══════════════════════════════ */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: transparent;
+  padding: 4px 0;
+  transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  padding: 4px 0;
+  background: transparent;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.nav-wrap {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 24px; height: 40px;
+  position: relative; z-index: 2;
+}
+
+/* ── PURE MAD-STYLE FROSTED GLASS NAVBAR (NO BORDER LINE) ── */
+/* Blur fades out gradually instead of stopping in a hard rectangle,
+   so the navbar blends into the page content behind it, like MAD's site. */
+.nav-blur {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 140px; /* extends past the visible bar so the blur has room to fade out */
+  z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10,12,16,0.22) 0%, rgba(10,12,16,0.10) 45%, rgba(10,12,16,0) 100%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 92%);
+  mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 92%);
+  border-bottom: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.navbar.scrolled .nav-blur {
+  opacity: 1;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-mask-image: none;
+  mask-image: none;
+  border-bottom: none !important;
+}
+
+/* ── BRAND LOGO (Clean & Borderless) ── */
+.nav-brand,
+.navbar.scrolled .nav-brand {
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-right: 10px;
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  border: none !important;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none !important;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.nav-brand:hover,
+.navbar.scrolled .nav-brand:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+.nav-logo-img {
+  height: 20px; width: auto; object-fit: contain;
+}
+.nav-site-name { font-size: 0.80rem; font-weight: 700; display: block; color: #fff; letter-spacing: -0.01em; transition: color 0.3s ease; }
+.nav-site-sub  { font-size: 0.45rem; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; display: block; line-height: 1; transition: color 0.3s ease; }
+
+/* Scrolled MAD-style black regular text */
+.navbar.scrolled .nav-site-name { color: #111111; font-weight: 600; }
+.navbar.scrolled .nav-site-sub  { color: #6b7280; font-weight: 500; }
+
+/* ── FROSTED GLASS CAPSULE NAV LINKS (Left Aligned Next to Logo) ── */
+.nav-links { display: flex; align-items: center; gap: 5px; flex: 1; margin-left: 0; }
+
+.nav-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 28px; padding: 0 11px; border-radius: 6px;
+  font-size: 0.70rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.09);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+.nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+  box-shadow: none !important;
+}
+.nav-link.active {
+  color: #ffffff;
+  background: rgba(209, 0, 0, 0.85);
+  border-color: rgba(255, 60, 60, 0.6);
+  box-shadow: none !important;
+}
+.nav-link.c-gold { color: var(--gold); }
+.nav-link.c-gold:hover { color: var(--gold-lt); }
+
+/* Remove all black focus rings & borders */
+button, button:focus, button:focus-visible, .nav-link:focus, .nav-link:focus-visible {
+  outline: none !important;
+}
+
+.navbar.scrolled .nav-link {
+  color: #1a1a1a;
+  font-weight: 400;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+}
+.navbar.scrolled .nav-link:hover {
+  color: #000000;
+  background: rgba(0, 0, 0, 0.1);
+  border-color: transparent !important;
+}
+.navbar.scrolled .nav-link.active {
+  color: #ffffff !important;
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  box-shadow: none !important;
+}
+
+/* ── DROPDOWNS (MAD Architects Style - Clean & Heavy Blur) ── */
+.nav-dropdown { position: relative; display: flex; align-items: center; }
+.nav-dd-trigger { display: inline-flex; align-items: center; gap: 4px; }
+.nav-dd-trigger .dd-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-left: 2px; font-weight: 300; font-size: 0.82rem; opacity: 0.9;
+  transition: transform 0.2s ease;
+}
+.nav-dd-trigger .dd-icon::after {
+  content: '+';
+}
+.nav-dd-trigger.active .dd-icon::after {
+  content: '-';
+}
+
+.nav-dd-menu {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: rgba(22, 24, 28, 0.92);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px; padding: 6px; min-width: 175px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  margin-top: -4px;
+}
+.nav-dd-menu.open { display: flex; flex-direction: column; animation: ddFadeIn 0.2s ease forwards; }
+
+@keyframes ddFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nav-dd-item {
+  display: block;
+  padding: 8px 14px; border-radius: 7px;
+  font-size: 0.82rem; font-weight: 500; color: rgba(255, 255, 255, 0.9);
+  transition: background 0.2s, color 0.2s, opacity 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+/* ── MAD FOCUS DIMMER EFFECT: Borderless text links (Hover 1 -> others turn grey) ── */
+.nav-dd-menu:hover .nav-dd-item {
+  opacity: 0.4;
+  color: rgba(255, 255, 255, 0.45) !important;
+  background: transparent !important;
+}
+.nav-dd-menu .nav-dd-item:hover {
+  opacity: 1;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+  transform: translateX(4px);
+}
+
+/* Scrolled Dropdown Styling (MAD Light Glass - Borderless Text Links) */
+.navbar.scrolled .nav-dd-menu {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  backdrop-filter: blur(40px) saturate(200%);
+}
+.navbar.scrolled .nav-dd-item {
+  color: #1a1a1a !important;
+  font-weight: 500 !important;
+  opacity: 1;
+  background: transparent !important;
+}
+.navbar.scrolled .nav-dd-menu:hover .nav-dd-item {
+  opacity: 0.35;
+  color: #888888 !important;
+  background: transparent !important;
+}
+.navbar.scrolled .nav-dd-menu .nav-dd-item:hover {
+  opacity: 1;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+  transform: translateX(4px);
+}
+
+/* ── NAV CTA BUTTONS ── */
+.nav-cta { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+/* ── EN / VI LANGUAGE TOGGLE — Clean MIT/Ashley Louie Pill ── */
+.language-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-right: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.language-toggle .lang-option {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: var(--font);
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.language-toggle .lang-option:hover {
+  color: #111827;
+  background: #f4f4f5;
+}
+
+.language-toggle .lang-option.active {
+  color: #ffffff;
+  background: var(--red);
+  font-weight: 700;
+}
+
+/* mobile toggle */
+.mobile-toggle {
+  display: none; background: none; border: 1px solid var(--border);
+  color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 0.9rem;
+  margin-left: 8px;
+}
+
+/* ── BUTTONS ── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--red); color: #fff;
+  padding: 11px 22px; border-radius: 8px;
+  font-size: 0.88rem; font-weight: 600; border: none;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 0 0 0 rgba(209,0,0,0);
+}
+.btn-primary:hover { background: var(--red-lt); box-shadow: 0 0 20px rgba(209,0,0,0.35); transform: translateY(-1px); }
+
+.btn-primary-sm {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  height: 28px; padding: 0 12px; border-radius: 6px;
+  font-size: 0.70rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em;
+  background: rgba(209, 0, 0, 0.85); color: #fff; border: 1px solid rgba(255, 60, 60, 0.5);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+.btn-primary-sm:hover {
+  background: var(--red); border-color: rgba(255, 100, 100, 0.7);
+  transform: translateY(-1px); box-shadow: none !important;
+}
+
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  height: 28px; padding: 0 11px; border-radius: 6px;
+  font-size: 0.70rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.09); color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+.btn-ghost:hover {
+  color: #fff; background: rgba(255, 255, 255, 0.22); border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px); box-shadow: none !important;
+}
+
+.navbar.scrolled .btn-ghost {
+  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+}
+.navbar.scrolled .btn-ghost:hover {
+  color: #000000;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: none !important;
+}
+.navbar.scrolled .btn-primary-sm {
+  color: #ffffff !important;
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  box-shadow: none !important;
+}
+
+.btn-ghost-lg {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #ffffff; color: #111827;
+  padding: 11px 22px; border-radius: 8px;
+  font-size: 0.88rem; font-weight: 600;
+  border: 1px solid #d1d5db;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.btn-ghost-lg:hover { color: #000000; border-color: #9ca3af; background: #f4f4f5; transform: translateY(-1px); }
+

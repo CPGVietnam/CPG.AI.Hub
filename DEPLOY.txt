@@ -1,9 +1,12 @@
-GITHUB WEB UPLOAD — NO FOLDERS
+STATIC HOST DEPLOYMENT
 
-1. Extract this ZIP.
-2. Open the GitHub repository.
-3. Add file > Upload files.
-4. Select ALL extracted files at once and upload them to the repository root.
-5. Commit changes.
+1. Upload the complete contents of this project directory.
+2. Keep the assets/ and src/ folder structure unchanged.
+3. Configure index.html as the default document.
+4. No build command is required.
 
-All images are already flattened into the root; no folders are required.
+Compatible targets include GitHub Pages, Cloudflare Pages, Netlify, Vercel,
+IIS, and other static web hosts.
+
+For Cloudflare Pages, use the project directory as the output directory and
+leave the build command empty.
